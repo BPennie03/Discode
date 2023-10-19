@@ -26,5 +26,4 @@ If you come up with any edge cases you didn't test while writing this PR, cancel
 # Checklist:
 
 - [ ] All local commits have been pushed to remote
-- [ ] All changes on the base branch have been merged into this branch
-- [ ] 
+- [ ] All changes on the base branch have been merged into this branch 
