@@ -7,8 +7,10 @@ from dotenv import load_dotenv
 load_dotenv()
 DISCORD_BOT_TOKEN = os.getenv('DISCORD_TOKEN')
 
-intents = discord.Intents(messages=True, guilds=True, members=True, voice_states=True, message_content=True)
+intents = discord.Intents(messages=True, guilds=True,
+                          members=True, voice_states=True, message_content=True)
 bot = commands.Bot(command_prefix='!', intents=intents)
+
 
 @bot.event
 async def on_ready():
