@@ -16,7 +16,7 @@ bot = commands.Bot(command_prefix='!', intents=intents)
 async def on_ready():
     print(f'{bot.user} has connected to Discord!')
 
-    for file in os.listdir('Cogs'):
+    for file in os.listdir('app'):
         if not file.startswith('__') and file.endswith('.py'):
             try:
                 await bot.load_extension(f'Cogs.{file[:-3]}')
