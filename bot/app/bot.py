@@ -14,6 +14,9 @@ bot = commands.Bot(command_prefix='!', intents=intents)
 
 @bot.event
 async def on_ready():
+    """
+    Initializes Discode Bot and loads all cogs in /Cogs
+    """
     print(f'{bot.user} has connected to Discord!')
 
     for file in os.listdir('app/Cogs'):
