@@ -4,10 +4,10 @@ from discord import app_commands
 
 
 async def setup(bot: commands.Bot):
-    await bot.add_cog(StudentCommands(bot))
+    await bot.add_cog(BotCommands(bot))
 
 
-class StudentCommands(commands.Cog):
+class BotCommands(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
