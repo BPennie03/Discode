@@ -12,7 +12,6 @@ COPY requirements.txt .
 # install all requirements
 RUN pip install --no-cache-dir -r requirements.txt
 
-# ? 
 COPY . .
 
 # run app on this port
