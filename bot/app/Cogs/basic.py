@@ -19,6 +19,7 @@ class StudentCommands(commands.Cog):
 
     @app_commands.command(description="Sends message containing Discord WebSocket protocol latency")
     async def ping(self, interaction: discord.Interaction):
-
+        
         latency = round(self.bot.latency * 1000)
         await interaction.response.send_message(f'{latency} ms')
+        
