@@ -10,3 +10,7 @@ async def setup(bot: commands.Bot):
 class Session(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
+
+    # Command to begin/start a session
+
+    # Command to end a session
