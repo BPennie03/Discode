@@ -1,0 +1,15 @@
+version: '3.8'
+
+services:
+  bot:
+    build:
+      context: ./bot
+      dockerfile: Dockerfile
+    ports:
+      - "80:80"
+    volumes:
+      - ./.env:/app/.env
+    environment:
+      - ENV_FILE_LOCATION=/app/.env
+    stdin_open: true
+    tty: true
