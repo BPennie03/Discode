@@ -42,7 +42,7 @@ class Session(commands.Cog):
 
     # Command to end a session
     @app_commands.command(description='Stop Discode Session')
-    async def stop(self, interaction: discord.Interaction):
+    async def end(self, interaction: discord.Interaction):
         """
         End a code session with Discode
         
@@ -57,6 +57,7 @@ class Session(commands.Cog):
                 f"{name} has no session to end", 
                 ephemeral=True
             )
+            return
 
         try:
             self.active_users.remove(id)
