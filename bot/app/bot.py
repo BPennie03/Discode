@@ -22,6 +22,7 @@ async def on_ready():
     for file in os.listdir('app/Cogs'):
         if file.endswith('.py'):
             try:
+                print(f"Loading cog {file}")
                 await bot.load_extension(f'Cogs.{file[:-3]}')
             except commands.errors.NoEntryPointError:
                 pass
