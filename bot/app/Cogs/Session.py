@@ -16,25 +16,39 @@ class Session(commands.Cog):
 
         Parameters:
         - bot (commands.Bot): The bot instance the cog will be added to.
+        - active_sessions (dict): A dictionary containing the active sessions of the bot. The key is the user ID and the value is the start time of the session.
+        - session_checker (tasks.loop): A loop that checks the active sessions every minute to see if any have timed out.
+        - TIME_LIMIT (int): The time limit in minutes for a session to be active.
         """
         self.bot = bot
         self.active_sessions = {}
         self.session_checker.start()
-        self.TIME_LIMIT = 30 # time limit in minutes
+        self.TIME_LIMIT = 30  # time limit in minutes
 
+    # Cancel the session checker loop when the cog is unloaded
     def cog_unload(self):
         self.session_checker.cancel()
 
+    # Loop to check the active sessions
     @tasks.loop(minutes=1)
     async def session_checker(self):
+        """
+        Check the active sessions every minute to see if any have timed out.
+        If a session has timed out, the user will be notified that their session has ended.
+        """
+
+        # Get the current time and the timeout duration
         current_time = datetime.now()
         timeout_duration = timedelta(minutes=self.TIME_LIMIT)
+
         for id, start_time in list(self.active_sessions.items()):
+            # If the session has timed out, remove the session from the active sessions and notify the user
             if current_time - start_time >= timeout_duration:
                 self.active_sessions.pop(id)
                 user = await self.bot.fetch_user(id.id)
                 if user:
                     try:
+                        # Nofiying the user via DM that their session has timed out
                         await user.send(f'Your Discode session has timed out after {self.TIME_LIMIT} minutes of inactivity.')
                     except discord.Forbidden:
                         pass
