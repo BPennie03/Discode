@@ -45,7 +45,7 @@ class Session(commands.Cog):
             # If the session has timed out, remove the session from the active sessions and notify the user
             if current_time - start_time >= timeout_duration:
                 self.active_sessions.pop(id)
-                user = await self.bot.fetch_user(id.id)
+                user = await self.bot.fetch_user(id)
                 if user:
                     try:
                         # Nofiying the user via DM that their session has timed out
@@ -136,4 +136,4 @@ class Session(commands.Cog):
         - discord.User: The user object associated with the interaction. This object contains information about the user who initiated the interaction, such as their username, ID, and other relevant user details.
 
         """
-        return interaction.user
+        return interaction.user.id
