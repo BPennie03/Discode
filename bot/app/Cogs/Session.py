@@ -1,5 +1,7 @@
+import asyncio
 import discord
-from discord.ext import commands
+from datetime import datetime, timedelta
+from discord.ext import commands, tasks
 from discord import app_commands
 
 
@@ -16,7 +18,26 @@ class Session(commands.Cog):
         - bot (commands.Bot): The bot instance the cog will be added to.
         """
         self.bot = bot
-        self.active_users = set()
+        self.active_sessions = {}
+        self.session_checker.start()
+        self.TIME_LIMIT = 30 # time limit in minutes
+
+    def cog_unload(self):
+        self.session_checker.cancel()
+
+    @tasks.loop(minutes=1)
+    async def session_checker(self):
+        current_time = datetime.now()
+        timeout_duration = timedelta(minutes=self.TIME_LIMIT)
+        for id, start_time in list(self.active_sessions.items()):
+            if current_time - start_time >= timeout_duration:
+                self.active_sessions.pop(id)
+                user = await self.bot.fetch_user(id.id)
+                if user:
+                    try:
+                        await user.send(f'Your Discode session has timed out after {self.TIME_LIMIT} minutes of inactivity.')
+                    except discord.Forbidden:
+                        pass
 
     # Command to begin/start a session
     @app_commands.command(description='Start Discode Session')
@@ -30,14 +51,14 @@ class Session(commands.Cog):
         id = self.get_id_from_xaction(interaction)
         name = interaction.user.global_name
 
-        if id in self.active_users:
+        if id in self.active_sessions:
             await interaction.response.send_message(
                 f"{name} already has an active session",
                 ephemeral=True
             )
             return
 
-        self.active_users.add(id)
+        self.active_sessions[id] = datetime.now()
         await interaction.response.send_message(f"{name} (ID: {id}) has started a session")
 
     # Command to end a session
@@ -52,7 +73,7 @@ class Session(commands.Cog):
         id = self.get_id_from_xaction(interaction)
         name = interaction.user.global_name
 
-        if id not in self.active_users:
+        if id not in self.active_sessions:
             await interaction.response.send_message(
                 f"{name} has no session to end",
                 ephemeral=True
@@ -60,7 +81,7 @@ class Session(commands.Cog):
             return
 
         try:
-            self.active_users.remove(id)
+            self.active_sessions.pop(id, None)
         except KeyError:
             await interaction.response.send_message(
                 f"ID {id} not found in active users",
@@ -68,6 +89,7 @@ class Session(commands.Cog):
             )
             return
 
+        self.active_sessions.pop(id, None)
         await interaction.response.send_message(f"User {name} (ID: {id}) has ended their session")
 
     @app_commands.command(description='Check to see if you have an active session')
@@ -81,7 +103,7 @@ class Session(commands.Cog):
         - interaction (discord.Interaction): Interaction object sent from user
         """
         id = self.get_id_from_xaction(interaction)
-        status = id in self.active_users
+        status = id in self.active_sessions
 
         message = "Your session is currently active." if status else "You do not have an active session."
 
