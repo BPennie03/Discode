@@ -22,7 +22,17 @@ If you don't want to use Git, you can also download the repository as a ZIP file
 5. You can customize your bot's name and profile picture here.
 6. Under the "TOKEN" section, click "Copy" to get your bot's token. Do not share this token with anyone
 
-## Step 3: Creating a `.env` file
+
+## Step 3: Adding Discode to your server
+
+1.
+2. Navigate back to 'Discode' application section on the Developer Portal
+3. Select the `OAuth2` tab
+4. Scroll down to `Scopes` and select `bot`
+5. A `Bot Permissions` checklist should have now opened
+6. Select the `Administrator` box 
+
+## Step 4: Creating a `.env` file
 
 1. You can open the project directory if you haven't already with
 ```bash
@@ -38,14 +48,14 @@ DISCORD_TOKEN=Your_Bot_Token_Here
 ```
 4. Replace `Your_Bot_Token_Here` with the bot token you copied earlier
 
-## Step 4: Starting Docker
+## Step 5: Starting Docker
 Discode runs on Docker, so the Docker Deamon needs to be running. If you have Docker installed from the command line, you can use 
 ```
 sudo systemctl start docker 
 ```
 for use with Systemd. Or if you can start the Deamon from Docker Desktop if you prefer
 
-## 5. Running Discode
+## Step 6. Running Discode
 
 Once you have Docker running, you can start the bot with
 ```
