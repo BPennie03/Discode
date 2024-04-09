@@ -62,7 +62,7 @@ Once you have Docker running, you can start the bot with
 chmod u+x discode.sh
 ./discode.sh
 ```
-You should see `Discode has connected to Discord!` in your console. You should see your bot online in your server and can use all bot commands.
+You should see `Discode has connected to Discord!` in your console. You should also see your bot online in your server and can use all bot commands.
 
 
 
