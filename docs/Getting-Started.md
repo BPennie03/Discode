@@ -25,12 +25,15 @@ If you don't want to use Git, you can also download the repository as a ZIP file
 
 ## Step 3: Adding Discode to your server
 
-1.
-2. Navigate back to 'Discode' application section on the Developer Portal
+1. Make sure you are loged in to Discord in your browser
+2. Navigate back to `Discode` application section on the Developer Portal
 3. Select the `OAuth2` tab
 4. Scroll down to `Scopes` and select `bot`
 5. A `Bot Permissions` checklist should have now opened
 6. Select the `Administrator` box 
+7. Click the `Copy` and paste that link into your browser
+8. Select the server you want to add Discode to
+9. Select `Continue` and then `Authorize`
 
 ## Step 4: Creating a `.env` file
 
@@ -62,7 +65,7 @@ Once you have Docker running, you can start the bot with
 chmod u+x discode.sh
 ./discode.sh
 ```
-You should see `Discode has connected to Discord!` in your console. You should also see your bot online in your server and can use all bot commands.
+You should see `Discode has connected to Discord!` in your console. You should see your bot online in your server and can use all bot commands.
 
 
 
