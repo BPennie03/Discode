@@ -28,7 +28,7 @@ If you don't want to use Git, you can also download the repository as a ZIP file
 1. Make sure you are loged in to Discord in your browser
 2. Navigate back to `Discode` application section on the Developer Portal
 3. Select the `OAuth2` tab
-4. Scroll down to `Scopes` and select `bot`
+4. Scroll down to `Scopes` and select `bot` and `applications.commands`
 5. A `Bot Permissions` checklist should have now opened
 6. Select the `Administrator` box 
 7. Click the `Copy` and paste that link into your browser
@@ -66,7 +66,3 @@ chmod u+x discode.sh
 ./discode.sh
 ```
 You should see `Discode has connected to Discord!` in your console. You should see your bot online in your server and can use all bot commands.
-
-
-
-
